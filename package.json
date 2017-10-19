@@ -5,7 +5,9 @@
   "scripts": {
     "start": "webpack-dev-server --entry ./src/index.js --output-filename ./dist/bundle.js --host 0.0.0.0 --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
-    "lint": "eslint --fix src/**/*.js webpack.**.js"
+    "lint": "eslint src/**/*.js webpack.**.js",
+    "lint:fix": "eslint --fix src/**/*.js webpack.**.js",
+    "test": "npm run lint"
   },
   "author": "Sebastian Limbach",
   "license": "MIT",
