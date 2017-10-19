@@ -1,3 +1,4 @@
+/* eslint import/no-extraneous-dependencies: 0 */
 const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
