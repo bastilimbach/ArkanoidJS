@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-SHA="git rev-parse --verify --short HEAD"
+SHA=$(git rev-parse --verify --short HEAD)
 
 cd dist
 git init
