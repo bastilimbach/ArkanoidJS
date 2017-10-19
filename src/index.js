@@ -1,3 +1,3 @@
-const css = require('./app.scss')
+const css = require('./app.scss') // eslint-disable-line no-unused-vars
 
-console.log('Test')
+document.write('Hello World')
