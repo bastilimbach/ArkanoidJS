@@ -15,6 +15,17 @@ module.exports = {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract(['css-loader', 'sass-loader']),
       },
+      {
+        test: /\.html$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'index.html',
+            },
+          },
+        ],
+      },
     ],
   },
   plugins: [

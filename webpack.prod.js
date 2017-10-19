@@ -25,6 +25,17 @@ module.exports = {
         },
         ]),
       },
+      {
+        test: /\.html$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'index.html',
+            },
+          },
+        ],
+      },
     ],
   },
   plugins: [
