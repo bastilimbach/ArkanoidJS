@@ -1,7 +1,7 @@
 /* eslint import/no-extraneous-dependencies: 0 */
 const path = require('path')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const Webpack = require('webpack')
 
 module.exports = {
   entry: './src/index.js',
@@ -13,7 +13,7 @@ module.exports = {
     rules: [
       {
         test: /\.scss$/,
-        use: ExtractTextPlugin.extract(['css-loader', 'sass-loader']),
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.html$/,
@@ -40,7 +40,14 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
-    new ExtractTextPlugin('./dist/bundle.css'),
+    new Webpack.NamedModulesPlugin(),
+    new Webpack.HotModuleReplacementPlugin(),
   ],
   devtool: 'inline-source-map',
+  devServer: {
+    contentBase: path.resolve(__dirname, 'dist'),
+    compress: true,
+    port: 8080,
+    hot: true,
+  },
 }
