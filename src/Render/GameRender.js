@@ -47,7 +47,6 @@ export default class GameRender {
     this.context.rect(x, y, width, height)
     this.context.fillStyle = color
     this.context.fill()
-    // this.context.closePath()
   }
 
   _drawCircle(x, y, radius, color, stroke = null) {
@@ -55,11 +54,10 @@ export default class GameRender {
     this.context.arc(x, y, radius, 0, Math.PI * 2)
     this.context.fillStyle = color
     this.context.fill()
-    // if (stroke !== null) {
-    //   this.context.strokeStyle = 'black'
-    //   this.context.lineWidth = 1
-    //   this.context.stroke()
-    // }
-    // this.context.closePath()
+    if (stroke !== null) {
+      this.context.strokeStyle = 'black'
+      this.context.lineWidth = 1
+      this.context.stroke()
+    }
   }
 }
