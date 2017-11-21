@@ -8,6 +8,12 @@
         "quotes": [
             "error",
             "single"
+        ],
+        "no-underscore-dangle": [
+            "error",
+            {
+                "allowAfterThis": true
+            }
         ]
     },
     "env": {
