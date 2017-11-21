@@ -1,4 +1,4 @@
-# ArkanoidJS
+# ArkanoidJS [![Build Status](https://travis-ci.org/bastilimbach/ArkanoidJS.svg?branch=master)](https://travis-ci.org/bastilimbach/ArkanoidJS)
 > :warning: This is a work in progress project! It may not represent the finished product or work at all.
 
 The project is the result of a college project, trying to recreate retro games in modern JavaScript.
