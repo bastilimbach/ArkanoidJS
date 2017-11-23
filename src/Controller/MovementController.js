@@ -22,6 +22,6 @@ export default class MovementController {
     if (newPosition[1] !== null) {
       y = newPosition[1] - (this.item.getHeight() / 2)
     }
-    this.item.position = [x, y]
+    this.item.setPosition([x, y])
   }
 }

@@ -1,3 +1,4 @@
+import { AttachmentPosition } from '../Item/Item'
 import Ball from '../Item/Ball'
 import Platform from '../Item/Platform'
 import PlatformController from '../Controller/PlatformController'
@@ -8,8 +9,15 @@ export default class ItemLoader {
   }
 
   loadInitialItems() {
-    // const ball = new Ball(20, '#FF0000')
+    const ball = new Ball(20, '#FF0000')
     const platform = new Platform(100, 10, '#000')
+    platform.attachItem(ball, AttachmentPosition.TOP)
+    console.log(platform)
+
+    // setTimeout(() => {
+    //   platform.detachItem(ball)
+    // }, 3000)
+
     this.items = [platform]
   }
 

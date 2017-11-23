@@ -16,29 +16,35 @@ export default class GameRender {
   }
 
   renderItems(items) {
-    // this.context.clearRect(0, 0, this.canvas.width, this.canvas.height)
     for (let i = 0; i < items.length; i += 1) {
-      switch (items[i].type) {
-        case ItemType.RECTANGLE:
-          this._drawRectangle(
-            items[i].getXPosition(),
-            items[i].getYPosition(),
-            items[i].getWidth(),
-            items[i].getHeight(),
-            items[i].getColor(),
-          )
-          break
-        case ItemType.CIRCLE:
-          this._drawCircle(
-            items[i].getXPosition(),
-            items[i].getYPosition(),
-            items[i].getWidth() / 2,
-            items[i].getColor(),
-          )
-          break
-        default:
-          throw new TypeError('Couldn\'t render Item: Unkown item type.')
+      this._drawShape(items[i])
+      for (let j = 0; j < items[i].boundItems.length; j += 1) {
+        this._drawShape(items[i].boundItems[j])
       }
+    }
+  }
+
+  _drawShape(item) {
+    switch (item.type) {
+      case ItemType.RECTANGLE:
+        this._drawRectangle(
+          item.getXPosition(),
+          item.getYPosition(),
+          item.getWidth(),
+          item.getHeight(),
+          item.getColor(),
+        )
+        break
+      case ItemType.CIRCLE:
+        this._drawCircle(
+          item.getXPosition(),
+          item.getYPosition(),
+          item.getWidth() / 2,
+          item.getColor(),
+        )
+        break
+      default:
+        throw new TypeError('Couldn\'t render Item: Unknown item type.')
     }
   }
 
