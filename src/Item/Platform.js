@@ -4,7 +4,7 @@ import Helper from '../Utility/Utility'
 export default class Platform extends Item {
   constructor(width, height, color) {
     super(
-      [Helper.randomIntFromInterval(0, 1000), Helper.randomIntFromInterval(0, 500)],
+      [500 - (width / 2), 500 - height],
       [width, height],
       color,
       ItemType.RECTANGLE,
