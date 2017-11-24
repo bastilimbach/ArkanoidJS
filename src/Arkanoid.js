@@ -12,6 +12,7 @@ export default class Arkanoid {
     this.render = new GameRender()
     this.loader = new ItemLoader()
     this.loader.loadInitialItems()
+    this.loader.loadLevel()
     this.mouseController = new MouseController(
       this,
       this.render.canvas,
