@@ -14,12 +14,13 @@ export const AttachmentPosition = {
 }
 
 export default class Item {
-  constructor(position, size, color, type = ItemType.RECTANGLE) {
+  constructor(position, size, color, type = ItemType.RECTANGLE, life = -1) {
     this.id = Helper.createGuid()
     this.position = position
     this.size = size
     this.color = color
     this.type = type
+    this.life = life
     this.boundItems = []
     this.attachmentPosition = null
   }
