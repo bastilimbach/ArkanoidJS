@@ -1,4 +1,4 @@
-import { AttachmentPosition } from '../Item/Item'
+import Item, { AttachmentPosition } from '../Item/Item'
 import Ball from '../Item/Ball'
 import Platform from '../Item/Platform'
 import PlatformController from '../Controller/PlatformController'
@@ -49,6 +49,19 @@ export default class ItemLoader {
         offsetX = offsetX + brickWidth + margin
       }
     }
+
+    this._loadLevelBoundaries()
+  }
+
+  _loadLevelBoundaries() {
+    const canvasWidth = 1000
+    const canvasHeight = 500
+    const boundariesWidth = 5
+    const top = new Item([0, 0], [canvasWidth, boundariesWidth], 'blue')
+    const right = new Item([canvasWidth - boundariesWidth, 0], [boundariesWidth, canvasHeight], 'blue')
+    const bottom = new Item([0, canvasHeight - boundariesWidth], [canvasWidth, boundariesWidth], 'blue')
+    const left = new Item([0, 0], [boundariesWidth, canvasWidth], 'blue')
+    this.items.push(top, right, bottom, left)
   }
 
   addItem(item) {
