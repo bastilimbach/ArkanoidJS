@@ -8,13 +8,14 @@ import Helper from '../Utility/Utility'
 class ItemLoader {
   constructor() {
     this.items = []
+    this.controllableItems = []
+    this.movingItems = []
   }
 
   loadInitialItems() {
-    const ball = new Ball(20, '#FF0000')
+    const ball = new Ball(20, 'yellow')
     const platform = new Platform(100, 10, '#000')
     platform.attachItem(ball, AttachmentPosition.TOP)
-    console.log(platform)
 
     // setTimeout(() => {
     //   platform.detachItem(ball)
@@ -68,14 +69,21 @@ class ItemLoader {
     this.items.push(item)
   }
 
+  addMovingItem(item) {
+    this.movingItems.push(item)
+  }
+
+  getMovingItems() {
+    return this.movingItems
+  }
+
   getItems() {
     return this.items
   }
 
   getControllableItems() {
-    const controllableItems = []
-    controllableItems.push(new PlatformController(this.items[0]))
-    return controllableItems
+    this.controllableItems.push(new PlatformController(this.items[0]))
+    return this.controllableItems
   }
 }
 

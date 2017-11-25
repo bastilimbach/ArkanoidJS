@@ -77,6 +77,10 @@ export default class Item {
     this.attachmentPosition = newPosition
   }
 
+  getPosition() {
+    return this.position
+  }
+
   getXPosition() {
     return this.position[0]
   }

@@ -12,6 +12,7 @@ export default class Arkanoid {
     this.render = new GameRender()
     ItemLoader.loadInitialItems()
     ItemLoader.loadLevel()
+    this.movingItems = ItemLoader.getMovingItems()
     this.mouseController = new MouseController(
       this,
       this.render.canvas,
@@ -20,7 +21,15 @@ export default class Arkanoid {
   }
 
   update() {
+    this._moveItems()
     this.render.clearScreen()
     this.render.renderItems(ItemLoader.getItems())
+  }
+
+  _moveItems() {
+    this.movingItems = ItemLoader.getMovingItems()
+    for (let i = 0; i < this.movingItems.length; i += 1) {
+      this.movingItems[i].moveFreely()
+    }
   }
 }
