@@ -3,12 +3,19 @@ export default class MouseController {
     this.game = game
     this.items = controllableItems
     canvas.addEventListener('mousemove', this.mouseMoved.bind(this))
+    canvas.addEventListener('click', this.mouseClicked.bind(this))
   }
 
   mouseMoved(event) {
     const mousePosition = [event.layerX, event.layerY]
     for (let i = 0; i < this.items.length; i += 1) {
       this.items[i].move(mousePosition)
+    }
+  }
+
+  mouseClicked() {
+    for (let i = 0; i < this.items.length; i += 1) {
+      this.items[i].handleClick()
     }
   }
 }
