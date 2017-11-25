@@ -5,7 +5,7 @@ import PlatformController from '../Controller/PlatformController'
 import Brick from '../Item/Brick'
 import Helper from '../Utility/Utility'
 
-export default class ItemLoader {
+class ItemLoader {
   constructor() {
     this.items = []
   }
@@ -78,3 +78,5 @@ export default class ItemLoader {
     return controllableItems
   }
 }
+
+export default new ItemLoader()

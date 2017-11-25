@@ -10,18 +10,17 @@ export default class Arkanoid {
   constructor() {
     this.state = GameState.RUNNING
     this.render = new GameRender()
-    this.loader = new ItemLoader()
-    this.loader.loadInitialItems()
-    this.loader.loadLevel()
+    ItemLoader.loadInitialItems()
+    ItemLoader.loadLevel()
     this.mouseController = new MouseController(
       this,
       this.render.canvas,
-      this.loader.getControllableItems(),
+      ItemLoader.getControllableItems(),
     )
   }
 
   update() {
     this.render.clearScreen()
-    this.render.renderItems(this.loader.getItems())
+    this.render.renderItems(ItemLoader.getItems())
   }
 }
