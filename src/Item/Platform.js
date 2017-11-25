@@ -18,7 +18,7 @@ export default class Platform extends Item {
         this.detachItem(this.boundItems[i])
         const detachedBall = new Ball(20, 'yellow')
         detachedBall.setPosition(prevBoundPosition)
-        detachedBall.setSpeed([4, 2])
+        detachedBall.setSpeed([0.4, 0.2])
         detachedBall.setDirection([MovingDirection.LEFT, MovingDirection.UP])
         ItemLoader.addItem(detachedBall)
         ItemLoader.addMovingItem(detachedBall)

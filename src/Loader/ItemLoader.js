@@ -4,6 +4,7 @@ import Platform from '../Item/Platform'
 import PlatformController from '../Controller/PlatformController'
 import Brick from '../Item/Brick'
 import Helper from '../Utility/Utility'
+import CollisionManager from '../Collision/CollisionManager'
 
 class ItemLoader {
   constructor() {
@@ -17,6 +18,7 @@ class ItemLoader {
     const platform = new Platform(100, 10, '#000')
     platform.attachItem(ball, AttachmentPosition.TOP)
     this.items = [platform]
+    CollisionManager.addObservableItem(platform)
   }
 
   loadLevel() {
@@ -35,9 +37,10 @@ class ItemLoader {
         [offsetX, offsetY],
         [brickWidth, brickHeight],
         'red',
-        Helper.randomIntFromInterval(1, 5),
+        Helper.randomIntFromInterval(1, 1),
       )
       this.items.push(levelBrick)
+      CollisionManager.addObservableItem(levelBrick)
       if (offsetX + brickWidth > canvasWidth - brickWidth) {
         offsetX = offset
         offsetY = offsetY + brickHeight + margin
@@ -58,6 +61,10 @@ class ItemLoader {
     const bottom = new Item([0, canvasHeight - boundariesWidth], [canvasWidth, boundariesWidth], 'blue')
     const left = new Item([0, 0], [boundariesWidth, canvasWidth], 'blue')
     this.items.push(top, right, bottom, left)
+    CollisionManager.addObservableItem(top)
+    CollisionManager.addObservableItem(right)
+    CollisionManager.addObservableItem(bottom)
+    CollisionManager.addObservableItem(left)
   }
 
   addItem(item) {
@@ -74,12 +81,23 @@ class ItemLoader {
 
   getItems() {
     // TODO check item life and remove on 0
+    this._purgeDeadItems()
     return this.items
   }
 
   getControllableItems() {
     this.controllableItems.push(new PlatformController(this.items[0]))
     return this.controllableItems
+  }
+
+  _purgeDeadItems() {
+    for (let i = 0; i < this.items.length; i += 1) {
+      if (this.items[i].life === 0) {
+        this.items.splice(i, 1)
+        CollisionManager.removeObservableItemAtIndex(i)
+        break
+      }
+    }
   }
 }
 

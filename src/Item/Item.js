@@ -1,3 +1,4 @@
+import CollisionManager from '../Collision/CollisionManager'
 import Helper from '../Utility/Utility'
 
 export const ItemType = {
@@ -84,10 +85,34 @@ export default class Item {
 
     const calculateXAxis = axisCalculation(this.direction[0])
     const calculateYAxis = axisCalculation(this.direction[1])
-    return [
+    const nextPosition = [
       calculateXAxis(this.position[0], this.speed[0]),
       calculateYAxis(this.position[1], this.speed[1]),
     ]
+    const collision = CollisionManager.collisionAt(nextPosition)
+    if (collision !== null) {
+      collision.collider.decreaseLife()
+      console.log(collision.collider)
+      switch (collision.direction) {
+        case 'horizontal':
+          // nextPosition = [
+          //   calculateXAxis(collision.collider.getXPosition(), this.speed[0]),
+          //   calculateYAxis(collision.collider.getYPosition(), this.speed[1]),
+          // ]
+          this.flipHorizontalDirection()
+          break
+        case 'vertical':
+          // nextPosition = [
+          //   calculateXAxis(collision.collider.getXPosition(), this.speed[0]),
+          //   calculateYAxis(collision.collider.getYPosition(), this.speed[1]),
+          // ]
+          this.flipVerticalDirection()
+          break
+        default:
+          throw new TypeError('Unknown collision direction.')
+      }
+    }
+    return nextPosition
   }
 
   setAttachmentPosition(newPosition) {
@@ -104,6 +129,12 @@ export default class Item {
 
   setDirection(newDirection) {
     this.direction = newDirection
+  }
+
+  decreaseLife() {
+    if (this.life > 0) {
+      this.life -= 1
+    }
   }
 
   getDirection() {
@@ -147,7 +178,7 @@ export default class Item {
       case AttachmentPosition.CENTER:
         return parentItemCenter
       case AttachmentPosition.TOP:
-        return [parentItemCenter[0], this.position[1] - (attachment.getHeight() / 2)]
+        return [parentItemCenter[0], this.position[1] - (attachment.getHeight() / 2) - 10]
       case AttachmentPosition.RIGHT:
         return new ReferenceError('This attachment position isn\'t implemented yet.')
       case AttachmentPosition.BOTTOM:
