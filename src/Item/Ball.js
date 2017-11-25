@@ -12,8 +12,7 @@ export default class Ball extends Item {
   }
 
   moveFreely() {
-    const newX = this.getXPosition() + 3
-    const newY = this.getYPosition() - 1
-    this.setPosition([newX, newY])
+    const newPos = this.getNextPosition()
+    this.setPosition(newPos)
   }
 }

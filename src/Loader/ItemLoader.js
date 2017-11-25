@@ -16,11 +16,6 @@ class ItemLoader {
     const ball = new Ball(20, 'yellow')
     const platform = new Platform(100, 10, '#000')
     platform.attachItem(ball, AttachmentPosition.TOP)
-
-    // setTimeout(() => {
-    //   platform.detachItem(ball)
-    // }, 3000)
-
     this.items = [platform]
   }
 
@@ -78,6 +73,7 @@ class ItemLoader {
   }
 
   getItems() {
+    // TODO check item life and remove on 0
     return this.items
   }
 

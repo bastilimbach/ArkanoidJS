@@ -13,14 +13,32 @@ export const AttachmentPosition = {
   CENTER: 'attachCenter',
 }
 
+export const MovingDirection = {
+  UP: 'movingUp',
+  RIGHT: 'movingRight',
+  DOWN: 'movingDown',
+  LEFT: 'movingLeft',
+  NONE: 'notMoving',
+}
+
 export default class Item {
-  constructor(position, size, color, type = ItemType.RECTANGLE, life = -1) {
+  constructor(
+    position,
+    size,
+    color,
+    type = ItemType.RECTANGLE,
+    life = -1,
+    direction = [MovingDirection.NONE, MovingDirection.NONE],
+    speed = [0, 0],
+  ) {
     this.id = Helper.createGuid()
     this.position = position
     this.size = size
     this.color = color
     this.type = type
     this.life = life
+    this.direction = direction
+    this.speed = speed
     this.boundItems = []
     this.attachmentPosition = null
   }
@@ -29,31 +47,6 @@ export default class Item {
     item.setAttachmentPosition(position)
     this.boundItems.push(item)
     this.setPosition(this.position)
-    // const parentItemCenter = this.getCenterPosition()
-    // switch (position) {
-    //   case AttachmentPosition.CENTER:
-    //     item.setPosition(parentItemCenter)
-    //     break
-    //   case AttachmentPosition.TOP:
-    //     item.setPosition([
-    //       parentItemCenter[0],
-    //       this.position[1] - (item.getHeight() / 2),
-    //     ])
-    //     break
-    //   case AttachmentPosition.RIGHT:
-    //     throw new ReferenceError('This attachment position isn\'t implemented yet.')
-    //   case AttachmentPosition.BOTTOM:
-    //     // item.setPosition([
-    //     //   parentItemCenter[0],
-    //     //   this.position[1],
-    //     // ])
-    //     // break
-    //     throw new ReferenceError('This attachment position isn\'t implemented yet.')
-    //   case AttachmentPosition.LEFT:
-    //     throw new ReferenceError('This attachment position isn\'t implemented yet.')
-    //   default:
-    //     throw new TypeError('Couldn\'t attach Item: Unknown attachment position.')
-    // }
   }
 
   detachItem(item) {
@@ -73,8 +66,48 @@ export default class Item {
     this.position = newPosition
   }
 
+  getNextPosition() {
+    const axisCalculation = (direction) => {
+      switch (direction) {
+        case MovingDirection.UP:
+        case MovingDirection.LEFT:
+          return (axis, speed) => axis - speed
+        case MovingDirection.RIGHT:
+        case MovingDirection.DOWN:
+          return (axis, speed) => axis + speed
+        case MovingDirection.NONE:
+          return axis => axis
+        default:
+          throw new TypeError('Error!')
+      }
+    }
+
+    const calculateXAxis = axisCalculation(this.direction[0])
+    const calculateYAxis = axisCalculation(this.direction[1])
+    return [
+      calculateXAxis(this.position[0], this.speed[0]),
+      calculateYAxis(this.position[1], this.speed[1]),
+    ]
+  }
+
   setAttachmentPosition(newPosition) {
     this.attachmentPosition = newPosition
+  }
+
+  setSpeed(newSpeed) {
+    this.speed = newSpeed
+  }
+
+  getSpeed() {
+    return this.speed
+  }
+
+  setDirection(newDirection) {
+    this.direction = newDirection
+  }
+
+  getDirection() {
+    return this.direction
   }
 
   getPosition() {
@@ -124,5 +157,15 @@ export default class Item {
       default:
         return new TypeError('Couldn\'t attach Item: Unknown attachment position.')
     }
+  }
+
+  flipHorizontalDirection() {
+    this.direction[0] = (this.direction[0] === MovingDirection.LEFT) ?
+      MovingDirection.RIGHT : MovingDirection.LEFT
+  }
+
+  flipVerticalDirection() {
+    this.direction[1] = (this.direction[1] === MovingDirection.UP) ?
+      MovingDirection.DOWN : MovingDirection.UP
   }
 }
