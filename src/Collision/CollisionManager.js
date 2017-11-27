@@ -1,3 +1,5 @@
+import { MovingDirection } from '../Item/Item'
+
 class CollisionManager {
   constructor() {
     this.observableItems = []
@@ -11,37 +13,63 @@ class CollisionManager {
     this.observableItems.splice(index, 1)
   }
 
-  collisionAt(nextPosition) {
+  collisionAt(nextPosition, item) {
+    const collision = {
+      direction: '',
+      collider: '',
+      calculatedCollisionPosition: [],
+    }
+
     for (let i = 0; i < this.observableItems.length; i += 1) {
       const e = this.observableItems[i]
       if (
         (
-          nextPosition[0] >= e.getXPosition() - 20 - 1 &&
-          nextPosition[0] <= e.getXPosition() + e.getWidth() + 20 + 1
+          nextPosition[0] >= e.getXPosition() - (item.getWidth() / 2) &&
+          nextPosition[0] <= e.getXPosition() + e.getWidth() + (item.getWidth() / 2)
         ) && (
           nextPosition[1] >= e.getYPosition() &&
           nextPosition[1] <= e.getYPosition() + e.getHeight()
         )
       ) {
-        return {
-          direction: 'horizontal',
-          collider: e,
+        collision.direction = 'horizontal'
+        collision.collider = e
+        if (item.getDirection()[0] === MovingDirection.LEFT) {
+          collision.calculatedCollisionPosition = [
+            e.getXPosition() + e.getWidth() + (item.getWidth() / 2),
+            nextPosition[1],
+          ]
+        } else if (item.getDirection()[0] === MovingDirection.RIGHT) {
+          collision.calculatedCollisionPosition = [
+            e.getXPosition() - (item.getWidth() / 2),
+            nextPosition[1],
+          ]
         }
+        return collision
       }
 
       if (
         (
-          nextPosition[1] >= e.getYPosition() - 20 &&
-          nextPosition[1] <= e.getYPosition() + e.getHeight() + 20
+          nextPosition[1] >= e.getYPosition() - (item.getWidth() / 2) &&
+          nextPosition[1] <= e.getYPosition() + e.getHeight() + (item.getWidth() / 2)
         ) && (
-          nextPosition[0] >= e.getXPosition() - 20 &&
-          nextPosition[0] <= e.getXPosition() + e.getWidth() + 20
+          nextPosition[0] >= e.getXPosition() - (item.getWidth() / 2) &&
+          nextPosition[0] <= e.getXPosition() + e.getWidth() + (item.getWidth() / 2)
         )
       ) {
-        return {
-          direction: 'vertical',
-          collider: e,
+        collision.direction = 'vertical'
+        collision.collider = e
+        if (item.getDirection()[1] === MovingDirection.UP) {
+          collision.calculatedCollisionPosition = [
+            nextPosition[0],
+            e.getYPosition() + e.getHeight() + (item.getHeight() / 2),
+          ]
+        } else if (item.getDirection()[1] === MovingDirection.DOWN) {
+          collision.calculatedCollisionPosition = [
+            nextPosition[0],
+            e.getYPosition() - (item.getHeight() / 2),
+          ]
         }
+        return collision
       }
     }
     return null

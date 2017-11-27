@@ -85,27 +85,25 @@ export default class Item {
 
     const calculateXAxis = axisCalculation(this.direction[0])
     const calculateYAxis = axisCalculation(this.direction[1])
-    const nextPosition = [
+    let nextPosition = [
       calculateXAxis(this.position[0], this.speed[0]),
       calculateYAxis(this.position[1], this.speed[1]),
     ]
-    const collision = CollisionManager.collisionAt(nextPosition)
+    const collision = CollisionManager.collisionAt(nextPosition, this)
     if (collision !== null) {
-      collision.collider.decreaseLife()
+      if (collision.collider.life < this.life) {
+        this.setLife(0)
+      } else {
+        collision.collider.decreaseLife()
+      }
       console.log(collision.collider)
       switch (collision.direction) {
         case 'horizontal':
-          // nextPosition = [
-          //   calculateXAxis(collision.collider.getXPosition(), this.speed[0]),
-          //   calculateYAxis(collision.collider.getYPosition(), this.speed[1]),
-          // ]
+          nextPosition = collision.calculatedCollisionPosition
           this.flipHorizontalDirection()
           break
         case 'vertical':
-          // nextPosition = [
-          //   calculateXAxis(collision.collider.getXPosition(), this.speed[0]),
-          //   calculateYAxis(collision.collider.getYPosition(), this.speed[1]),
-          // ]
+          nextPosition = collision.calculatedCollisionPosition
           this.flipVerticalDirection()
           break
         default:
@@ -129,6 +127,10 @@ export default class Item {
 
   setDirection(newDirection) {
     this.direction = newDirection
+  }
+
+  setLife(newLife) {
+    this.life = newLife
   }
 
   decreaseLife() {

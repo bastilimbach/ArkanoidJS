@@ -1,4 +1,4 @@
-import Item, { AttachmentPosition } from '../Item/Item'
+import Item, { AttachmentPosition, ItemType } from '../Item/Item'
 import Ball from '../Item/Ball'
 import Platform from '../Item/Platform'
 import PlatformController from '../Controller/PlatformController'
@@ -58,7 +58,7 @@ class ItemLoader {
     const boundariesWidth = 5
     const top = new Item([0, 0], [canvasWidth, boundariesWidth], 'blue')
     const right = new Item([canvasWidth - boundariesWidth, 0], [boundariesWidth, canvasHeight], 'blue')
-    const bottom = new Item([0, canvasHeight - boundariesWidth], [canvasWidth, boundariesWidth], 'blue')
+    const bottom = new Item([0, canvasHeight - boundariesWidth], [canvasWidth, boundariesWidth], 'blue', ItemType.RECTANGLE, -2)
     const left = new Item([0, 0], [boundariesWidth, canvasWidth], 'blue')
     this.items.push(top, right, bottom, left)
     CollisionManager.addObservableItem(top)
@@ -95,6 +95,20 @@ class ItemLoader {
       if (this.items[i].life === 0) {
         this.items.splice(i, 1)
         CollisionManager.removeObservableItemAtIndex(i)
+        break
+      }
+    }
+
+    for (let i = 0; i < this.movingItems.length; i += 1) {
+      if (this.movingItems[i].life === 0) {
+        this.movingItems.splice(i, 1)
+        break
+      }
+    }
+
+    for (let i = 0; i < this.controllableItems.length; i += 1) {
+      if (this.controllableItems[i].life === 0) {
+        this.controllableItems.splice(i, 1)
         break
       }
     }
