@@ -1,4 +1,4 @@
-import { MovingDirection } from '../Item/Item'
+import { MovingDirection, ItemType } from '../Item/Item'
 
 class CollisionManager {
   constructor() {
@@ -73,6 +73,20 @@ class CollisionManager {
       }
     }
     return null
+  }
+}
+
+CollisionManager.prototype.handleCollision = (item, collider) => {
+  switch (collider.type) {
+    case ItemType.BRICK:
+      if (collider.life < item.life) {
+        item.setLife(0)
+      } else {
+        collider.decreaseLife()
+      }
+      break
+    default:
+      break
   }
 }
 

@@ -1,4 +1,4 @@
-import Item, { MovingDirection } from './Item'
+import Item, { MovingDirection, ItemType } from './Item'
 import Ball from './Ball'
 import ItemLoader from '../Loader/ItemLoader'
 
@@ -8,6 +8,7 @@ export default class Platform extends Item {
       [500 - (width / 2), 500 - height - 10],
       [width, height],
       color,
+      ItemType.PLATFORM,
     )
   }
 
@@ -19,7 +20,7 @@ export default class Platform extends Item {
         const prevWidth = this.boundItems[i].getWidth()
         this.detachItem(this.boundItems[i])
         const detachedBall = new Ball(prevWidth, prevColor, prevBoundPosition)
-        detachedBall.setSpeed([10, 8])
+        detachedBall.setSpeed([3, 4])
         detachedBall.setDirection([MovingDirection.LEFT, MovingDirection.UP])
         ItemLoader.addItem(detachedBall)
         ItemLoader.addMovingItem(detachedBall)

@@ -1,4 +1,4 @@
-import Item, { ItemType } from './Item'
+import Item, { ItemType, ItemShape } from './Item'
 import Helper from '../Utility/Utility'
 
 export default class Ball extends Item {
@@ -11,7 +11,8 @@ export default class Ball extends Item {
       pos,
       [width, width],
       color,
-      ItemType.CIRCLE,
+      ItemType.BALL,
+      ItemShape.CIRCLE,
     )
   }
 

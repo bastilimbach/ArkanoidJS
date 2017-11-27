@@ -2,6 +2,13 @@ import CollisionManager from '../Collision/CollisionManager'
 import Helper from '../Utility/Utility'
 
 export const ItemType = {
+  BALL: 'ball',
+  BRICK: 'brick',
+  PLATFORM: 'platform',
+  POWERUP: 'powerup',
+}
+
+export const ItemShape = {
   RECTANGLE: 'rectangle',
   CIRCLE: 'circle',
 }
@@ -27,7 +34,8 @@ export default class Item {
     position,
     size,
     color,
-    type = ItemType.RECTANGLE,
+    type = ItemType.BRICK,
+    shape = ItemShape.RECTANGLE,
     life = -1,
     direction = [MovingDirection.NONE, MovingDirection.NONE],
     speed = [0, 0],
@@ -37,6 +45,7 @@ export default class Item {
     this.size = size
     this.color = color
     this.type = type
+    this.shape = shape
     this.life = life
     this.direction = direction
     this.speed = speed
@@ -91,11 +100,7 @@ export default class Item {
     ]
     const collision = CollisionManager.collisionAt(nextPosition, this)
     if (collision !== null) {
-      if (collision.collider.life < this.life) {
-        this.setLife(0)
-      } else {
-        collision.collider.decreaseLife()
-      }
+      CollisionManager.handleCollision(this, collision.collider)
       console.log(collision.collider)
       switch (collision.direction) {
         case 'horizontal':
@@ -131,12 +136,19 @@ export default class Item {
 
   setLife(newLife) {
     this.life = newLife
+    this._setColorBasedOnItemLife()
   }
 
   decreaseLife() {
     if (this.life > 0) {
       this.life -= 1
+      this._setColorBasedOnItemLife()
     }
+  }
+
+  _setColorBasedOnItemLife() {
+    const shadedColor = Helper.getColorLuminance(this.color, -(1 / this.life))
+    this.color = shadedColor
   }
 
   getDirection() {

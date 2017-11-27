@@ -1,4 +1,4 @@
-import Item, { ItemType } from './Item'
+import Item, { ItemType, ItemShape } from './Item'
 
 export default class Brick extends Item {
   constructor(position, size, color, life) {
@@ -6,7 +6,8 @@ export default class Brick extends Item {
       position,
       size,
       color,
-      ItemType.RECTANGLE,
+      ItemType.BRICK,
+      ItemShape.RECTANGLE,
       life,
     )
   }

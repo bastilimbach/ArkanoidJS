@@ -1,4 +1,4 @@
-import { ItemType } from '../Item/Item'
+import { ItemShape } from '../Item/Item'
 
 export default class GameRender {
   constructor() {
@@ -23,8 +23,8 @@ export default class GameRender {
   }
 
   _drawShape(item) {
-    switch (item.type) {
-      case ItemType.RECTANGLE:
+    switch (item.shape) {
+      case ItemShape.RECTANGLE:
         this._drawRectangle(
           item.getXPosition(),
           item.getYPosition(),
@@ -33,7 +33,7 @@ export default class GameRender {
           item.getColor(),
         )
         break
-      case ItemType.CIRCLE:
+      case ItemShape.CIRCLE:
         this._drawCircle(
           item.getXPosition(),
           item.getYPosition(),
@@ -42,7 +42,7 @@ export default class GameRender {
         )
         break
       default:
-        throw new TypeError('Couldn\'t render Item: Unknown item type.')
+        throw new TypeError(`Couldn't render Item: Unknown item shape: ${item.shape}`)
     }
   }
 

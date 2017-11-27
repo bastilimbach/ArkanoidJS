@@ -1,4 +1,4 @@
-import Item, { AttachmentPosition, ItemType } from '../Item/Item'
+import Item, { AttachmentPosition, ItemType, ItemShape } from '../Item/Item'
 import Ball from '../Item/Ball'
 import Platform from '../Item/Platform'
 import PlatformController from '../Controller/PlatformController'
@@ -30,14 +30,14 @@ class ItemLoader {
     const canvasWidth = 1000
     const brickWidth = (canvasWidth / bricksInRow).toFixed() - margin - (bricksInRow / offsetX)
     const brickHeight = 40
-    const brickAmount = 20
+    const brickAmount = 60
 
     for (let i = 0; i < brickAmount; i += 1) {
       const levelBrick = new Brick(
         [offsetX, offsetY],
         [brickWidth, brickHeight],
-        'red',
-        Helper.randomIntFromInterval(1, 1),
+        '#ff5050',
+        Helper.randomIntFromInterval(1, 5),
       )
       this.items.push(levelBrick)
       CollisionManager.addObservableItem(levelBrick)
@@ -58,7 +58,7 @@ class ItemLoader {
     const boundariesWidth = 5
     const top = new Item([0, 0], [canvasWidth, boundariesWidth], 'blue')
     const right = new Item([canvasWidth - boundariesWidth, 0], [boundariesWidth, canvasHeight], 'blue')
-    const bottom = new Item([0, canvasHeight - boundariesWidth], [canvasWidth, boundariesWidth], 'blue', ItemType.RECTANGLE, -2)
+    const bottom = new Item([0, canvasHeight - boundariesWidth], [canvasWidth, boundariesWidth], 'blue', ItemType.BRICK, ItemShape.RECTANGLE, -2)
     const left = new Item([0, 0], [boundariesWidth, canvasWidth], 'blue')
     this.items.push(top, right, bottom, left)
     CollisionManager.addObservableItem(top)
