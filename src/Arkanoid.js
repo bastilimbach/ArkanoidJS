@@ -1,9 +1,11 @@
 import GameRender from './Render/GameRender'
 import ItemLoader from './Loader/ItemLoader'
 import MouseController from './Controller/MouseController'
+import KeyboardController from './Controller/KeyboardController'
 
-const GameState = {
+export const GameState = {
   RUNNING: 'running',
+  PAUSE: 'pause',
 }
 
 export default class Arkanoid {
@@ -18,10 +20,13 @@ export default class Arkanoid {
       this.render.canvas,
       ItemLoader.getControllableItems(),
     )
+    this.keyboardController = new KeyboardController(this)
   }
 
   update() {
-    this._moveItems()
+    if (this.state === GameState.RUNNING) {
+      this._moveItems()
+    }
     this.render.clearScreen()
     this.render.renderItems(ItemLoader.getItems())
   }
@@ -31,5 +36,10 @@ export default class Arkanoid {
     for (let i = 0; i < this.movingItems.length; i += 1) {
       this.movingItems[i].moveFreely()
     }
+  }
+
+  togglePause() {
+    this.state = (this.state === GameState.RUNNING) ?
+      GameState.PAUSE : GameState.RUNNING
   }
 }
