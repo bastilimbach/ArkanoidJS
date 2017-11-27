@@ -1,6 +1,7 @@
 import Item, { MovingDirection, ItemType } from './Item'
 import Ball from './Ball'
 import ItemLoader from '../Loader/ItemLoader'
+import Helper from '../Utility/Utility'
 
 export default class Platform extends Item {
   constructor(width, height, color) {
@@ -20,8 +21,11 @@ export default class Platform extends Item {
         const prevWidth = this.boundItems[i].getWidth()
         this.detachItem(this.boundItems[i])
         const detachedBall = new Ball(prevWidth, prevColor, prevBoundPosition)
-        detachedBall.setSpeed([3, 4])
-        detachedBall.setDirection([MovingDirection.LEFT, MovingDirection.UP])
+        const xDirections = [MovingDirection.LEFT, MovingDirection.RIGHT]
+        const randomXDirection = xDirections[Math.floor(Math.random() * xDirections.length)]
+        const randomSpeed = () => Helper.randomIntFromInterval(1, 8)
+        detachedBall.setSpeed([0, randomSpeed()])
+        detachedBall.setDirection([randomXDirection, MovingDirection.UP])
         ItemLoader.addItem(detachedBall)
         ItemLoader.addMovingItem(detachedBall)
       }
