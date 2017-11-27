@@ -1,6 +1,7 @@
 import Item, { AttachmentPosition, ItemType, ItemShape } from '../Item/Item'
 import Ball from '../Item/Ball'
 import Platform from '../Item/Platform'
+import PowerUp from '../Item/PowerUp'
 import PlatformController from '../Controller/PlatformController'
 import Brick from '../Item/Brick'
 import Helper from '../Utility/Utility'
@@ -39,6 +40,10 @@ class ItemLoader {
         '#ff5050',
         Helper.randomIntFromInterval(1, 5),
       )
+      if (Helper.randomIntFromInterval(1, 4) === 2) {
+        const powerUp = new PowerUp(10, '#4286f4')
+        levelBrick.attachItem(powerUp)
+      }
       this.items.push(levelBrick)
       CollisionManager.addObservableItem(levelBrick)
       if (offsetX + brickWidth > canvasWidth - brickWidth) {

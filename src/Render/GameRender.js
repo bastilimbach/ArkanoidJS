@@ -1,4 +1,5 @@
 import { ItemShape } from '../Item/Item'
+import PowerUp from '../Item/PowerUp'
 
 export default class GameRender {
   constructor() {
@@ -23,6 +24,9 @@ export default class GameRender {
   }
 
   _drawShape(item) {
+    if (item instanceof PowerUp) {
+      this.context.globalCompositeOperation = 'destination-over'
+    }
     switch (item.shape) {
       case ItemShape.RECTANGLE:
         this._drawRectangle(
