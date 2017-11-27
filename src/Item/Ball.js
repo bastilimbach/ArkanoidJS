@@ -20,4 +20,40 @@ export default class Ball extends Item {
     const newPos = this.getNextPosition()
     this.setPosition(newPos)
   }
+
+  reactToCollision(collision) {
+    let position
+    if (collision.collider.type !== ItemType.POWERUP) {
+      switch (collision.direction) {
+        case 'horizontal':
+          this.flipHorizontalDirection()
+          position = collision.calculatedCollisionPosition
+          break
+        case 'vertical':
+          this.flipVerticalDirection()
+          position = collision.calculatedCollisionPosition
+          break
+        default:
+          throw new TypeError('Unknown collision direction.')
+      }
+    }
+
+    if (collision.collider.type === ItemType.BRICK) {
+      if (collision.collider.life < this.life) {
+        this.setLife(0)
+      } else {
+        if (collision.collider.life === 1) {
+          for (let i = 0; i < collision.collider.boundItems.length; i += 1) {
+            if (collision.collider.boundItems[i].getItemType() === ItemType.POWERUP) {
+              collision.collider.boundItems[i].releaseFromBrick()
+              collision.collider.detachItem(collision.collider.boundItems[i])
+              break
+            }
+          }
+        }
+        collision.collider.decreaseLife()
+      }
+    }
+    return position
+  }
 }

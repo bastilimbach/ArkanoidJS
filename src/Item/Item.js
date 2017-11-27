@@ -1,5 +1,6 @@
 import CollisionManager from '../Collision/CollisionManager'
 import Helper from '../Utility/Utility'
+// import ItemLoader from '../Loader/ItemLoader'
 
 export const ItemType = {
   BALL: 'ball',
@@ -88,7 +89,7 @@ export default class Item {
         case MovingDirection.NONE:
           return axis => axis
         default:
-          throw new TypeError('Error!')
+          throw new TypeError('Unknown moving direction.')
       }
     }
 
@@ -100,20 +101,8 @@ export default class Item {
     ]
     const collision = CollisionManager.collisionAt(nextPosition, this)
     if (collision !== null) {
-      CollisionManager.handleCollision(this, collision.collider)
       console.log(collision.collider)
-      switch (collision.direction) {
-        case 'horizontal':
-          nextPosition = collision.calculatedCollisionPosition
-          this.flipHorizontalDirection()
-          break
-        case 'vertical':
-          nextPosition = collision.calculatedCollisionPosition
-          this.flipVerticalDirection()
-          break
-        default:
-          throw new TypeError('Unknown collision direction.')
-      }
+      nextPosition = this.reactToCollision(collision)
     }
     return nextPosition
   }
@@ -122,8 +111,20 @@ export default class Item {
     this.attachmentPosition = newPosition
   }
 
+  getAttachmentPosition() {
+    return this.attachmentPosition
+  }
+
+  getItemType() {
+    return this.type
+  }
+
   setSpeed(newSpeed) {
     this.speed = newSpeed
+  }
+
+  increaseSpeed(speed) {
+    this.speed = [this.speed[0] + speed, this.speed[1] + speed]
   }
 
   getSpeed() {
@@ -176,6 +177,10 @@ export default class Item {
 
   getWidth() {
     return this.size[0]
+  }
+
+  increaseWidth(width) {
+    this.size[0] += width
   }
 
   getHeight() {
