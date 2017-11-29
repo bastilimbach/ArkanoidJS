@@ -8,6 +8,11 @@ ArkanoidJS is the result of a college project with the subject of trying to recr
 
 - Using the [docker image](https://hub.docker.com/r/bastilimbach/arkanoidjs/): `docker run -d -p 80:80 --name arkanoidjs bastilimbach/arkanoidjs`
 
+## How to play
+- Move paddle/platform: `Mouse X-axis`
+- Detach ball from paddle: `Left click`
+- Pause game: `ESC` `Space`  `P`
+
 ## Build from source
 To build this project from source you need to install [nodejs](https://nodejs.org/en/) and preferably [yarn](https://yarnpkg.com/en/).
 1. Clone the project: `git clone https://github.com/bastilimbach/ArkanoidJS.git`
