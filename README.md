@@ -11,7 +11,7 @@ ArkanoidJS is the result of a college project with the subject of trying to recr
 ## How to play
 - Move paddle/platform: `Mouse X-axis`
 - Detach ball from paddle: `Left click`
-- Pause game: `ESC` `Space`  `P`
+- Pause game: `ESC` `Space` `P`
 
 ## Build from source
 To build this project from source you need to install [nodejs](https://nodejs.org/en/) and preferably [yarn](https://yarnpkg.com/en/).
