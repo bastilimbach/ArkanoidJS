@@ -25,4 +25,8 @@ export default class Utility {
     }
     return rgb
   }
+
+  static getRandomObjectFromArray(array) {
+    return array[Math.floor(Math.random() * array.length)]
+  }
 }

@@ -1,11 +1,9 @@
 import Item, { AttachmentPosition, ItemType, ItemShape } from '../Item/Item'
 import Ball from '../Item/Ball'
 import Platform from '../Item/Platform'
-import PowerUp from '../Item/PowerUp'
 import PlatformController from '../Controller/PlatformController'
-import Brick from '../Item/Brick'
-import Helper from '../Utility/Utility'
 import CollisionManager from '../Collision/CollisionManager'
+import LevelLoader from './LevelLoader'
 
 class ItemLoader {
   constructor() {
@@ -23,37 +21,12 @@ class ItemLoader {
   }
 
   loadLevel() {
-    const offset = 10
-    let offsetX = offset
-    let offsetY = offset
-    const margin = 3
-    const bricksInRow = 12
-    const canvasWidth = 1000
-    const brickWidth = (canvasWidth / bricksInRow).toFixed() - margin - (bricksInRow / offsetX)
-    const brickHeight = 40
-    const brickAmount = 60
-
-    for (let i = 0; i < brickAmount; i += 1) {
-      const levelBrick = new Brick(
-        [offsetX, offsetY],
-        [brickWidth, brickHeight],
-        '#ff5050',
-        Helper.randomIntFromInterval(1, 5),
-      )
-      if (Helper.randomIntFromInterval(1, 4) === 2) {
-        const powerUp = new PowerUp(10, '#4286f4')
-        levelBrick.attachItem(powerUp)
-      }
-      this.items.push(levelBrick)
-      CollisionManager.addObservableItem(levelBrick)
-      if (offsetX + brickWidth > canvasWidth - brickWidth) {
-        offsetX = offset
-        offsetY = offsetY + brickHeight + margin
-      } else {
-        offsetX = offsetX + brickWidth + margin
-      }
+    const difficulty = LevelLoader.getLevelDifficulty(1)
+    const levelBricks = LevelLoader.getProceduralLevelBricks(difficulty)
+    for (let i = 0; i < levelBricks.length; i += 1) {
+      this.items.push(levelBricks[i])
+      CollisionManager.addObservableItem(levelBricks[i])
     }
-
     this._loadLevelBoundaries()
   }
 
@@ -85,7 +58,6 @@ class ItemLoader {
   }
 
   getItems() {
-    // TODO check item life and remove on 0
     this._purgeDeadItems()
     return this.items
   }
