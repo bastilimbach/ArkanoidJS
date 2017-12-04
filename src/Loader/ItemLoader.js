@@ -18,26 +18,27 @@ class ItemLoader {
     platform.attachItem(ball, AttachmentPosition.TOP)
     this.items = [platform]
     CollisionManager.addObservableItem(platform)
+    this._loadLevelBoundaries()
   }
 
-  loadLevel() {
-    const difficulty = LevelLoader.getLevelDifficulty(1)
+  loadLevel(lvl) {
+    this._purgeDeadItems()
+    const difficulty = LevelLoader.getLevelDifficulty(lvl)
     const levelBricks = LevelLoader.getProceduralLevelBricks(difficulty)
     for (let i = 0; i < levelBricks.length; i += 1) {
       this.items.push(levelBricks[i])
       CollisionManager.addObservableItem(levelBricks[i])
     }
-    this._loadLevelBoundaries()
   }
 
   _loadLevelBoundaries() {
     const canvasWidth = 1000
     const canvasHeight = 500
     const boundariesWidth = 5
-    const top = new Item([0, 0], [canvasWidth, boundariesWidth], 'blue')
-    const right = new Item([canvasWidth - boundariesWidth, 0], [boundariesWidth, canvasHeight], 'blue')
-    const bottom = new Item([0, canvasHeight - boundariesWidth], [canvasWidth, boundariesWidth], 'blue', ItemType.BRICK, ItemShape.RECTANGLE, -2)
-    const left = new Item([0, 0], [boundariesWidth, canvasWidth], 'blue')
+    const top = new Item([0, 0], [canvasWidth, boundariesWidth], 'blue', ItemType.BOUNDARY)
+    const right = new Item([canvasWidth - boundariesWidth, 0], [boundariesWidth, canvasHeight], 'blue', ItemType.BOUNDARY)
+    const bottom = new Item([0, canvasHeight - boundariesWidth], [canvasWidth, boundariesWidth], 'blue', ItemType.BOUNDARY, ItemShape.RECTANGLE, -2)
+    const left = new Item([0, 0], [boundariesWidth, canvasWidth], 'blue', ItemType.BOUNDARY)
     this.items.push(top, right, bottom, left)
     CollisionManager.addObservableItem(top)
     CollisionManager.addObservableItem(right)
@@ -70,23 +71,20 @@ class ItemLoader {
   _purgeDeadItems() {
     for (let i = 0; i < this.items.length; i += 1) {
       if (this.items[i].life === 0) {
+        CollisionManager.removeObservableItemWithID(this.items[i].id)
         this.items.splice(i, 1)
-        CollisionManager.removeObservableItemAtIndex(i)
-        break
       }
     }
 
     for (let i = 0; i < this.movingItems.length; i += 1) {
       if (this.movingItems[i].life === 0) {
         this.movingItems.splice(i, 1)
-        break
       }
     }
 
     for (let i = 0; i < this.controllableItems.length; i += 1) {
       if (this.controllableItems[i].life === 0) {
         this.controllableItems.splice(i, 1)
-        break
       }
     }
   }

@@ -9,8 +9,20 @@ class CollisionManager {
     this.observableItems.push(item)
   }
 
+  removeObservableItemWithID(itemID) {
+    for (let i = 0; i < this.observableItems.length; i += 1) {
+      if (this.observableItems[i].id === itemID) {
+        this.observableItems.splice(i, 1)
+      }
+    }
+  }
+
   removeObservableItemAtIndex(index) {
     this.observableItems.splice(index, 1)
+  }
+
+  getObservableItems() {
+    return this.observableItems
   }
 
   collisionAt(nextPosition, item) {

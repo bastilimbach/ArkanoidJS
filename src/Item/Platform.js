@@ -1,4 +1,4 @@
-import Item, { MovingDirection, ItemType } from './Item'
+import Item, { MovingDirection, ItemType, AttachmentPosition } from './Item'
 import Ball from './Ball'
 import ItemLoader from '../Loader/ItemLoader'
 import Helper from '../Utility/Utility'
@@ -13,6 +13,11 @@ export default class Platform extends Item {
     )
   }
 
+  bindBall() {
+    const newBall = new Ball(20, 'yellow')
+    this.attachItem(newBall, AttachmentPosition.TOP)
+  }
+
   unbindBall() {
     for (let i = 0; i < this.boundItems.length; i += 1) {
       if (this.boundItems[i] instanceof Ball) {
@@ -23,7 +28,7 @@ export default class Platform extends Item {
         const detachedBall = new Ball(prevWidth, prevColor, prevBoundPosition)
         const xDirections = [MovingDirection.LEFT, MovingDirection.RIGHT]
         const randomXDirection = xDirections[Math.floor(Math.random() * xDirections.length)]
-        const randomSpeed = () => Helper.randomIntFromInterval(1, 8)
+        const randomSpeed = () => Helper.randomIntFromInterval(4, 8)
         detachedBall.setSpeed([randomSpeed(), randomSpeed()])
         detachedBall.setDirection([randomXDirection, MovingDirection.UP])
         ItemLoader.addItem(detachedBall)

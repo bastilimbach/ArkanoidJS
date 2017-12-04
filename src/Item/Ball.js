@@ -39,21 +39,24 @@ export default class Ball extends Item {
     }
 
     if (collision.collider.type === ItemType.BRICK) {
-      if (collision.collider.life < this.life) {
-        this.setLife(0)
-      } else {
-        if (collision.collider.life === 1) {
-          for (let i = 0; i < collision.collider.boundItems.length; i += 1) {
-            if (collision.collider.boundItems[i].getItemType() === ItemType.POWERUP) {
-              collision.collider.boundItems[i].releaseFromBrick()
-              collision.collider.detachItem(collision.collider.boundItems[i])
-              break
-            }
+      if (collision.collider.life === 1) {
+        for (let i = 0; i < collision.collider.boundItems.length; i += 1) {
+          if (collision.collider.boundItems[i].getItemType() === ItemType.POWERUP) {
+            collision.collider.boundItems[i].releaseFromBrick()
+            collision.collider.detachItem(collision.collider.boundItems[i])
+            break
           }
         }
-        collision.collider.decreaseLife()
+      }
+      collision.collider.decreaseLife()
+    }
+
+    if (collision.collider.type === ItemType.BOUNDARY) {
+      if (collision.collider.life < this.life) {
+        this.setLife(0)
       }
     }
+
     return position
   }
 }

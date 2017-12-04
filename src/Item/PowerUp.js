@@ -58,10 +58,8 @@ export default class PowerUp extends Item {
       this.setLife(0)
     }
 
-    if (collision.collider.type === ItemType.BRICK) {
-      if (collision.collider.life < this.life) {
-        this.setLife(0)
-      }
+    if (collision.collider.type === ItemType.BOUNDARY) {
+      this.setLife(0)
     }
     return this.position
   }

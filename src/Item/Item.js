@@ -7,6 +7,7 @@ export const ItemType = {
   BRICK: 'brick',
   PLATFORM: 'platform',
   POWERUP: 'powerup',
+  BOUNDARY: 'boundary',
 }
 
 export const ItemShape = {
