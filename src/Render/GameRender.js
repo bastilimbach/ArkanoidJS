@@ -26,6 +26,16 @@ export default class GameRender {
   _drawShape(item) {
     if (item instanceof PowerUp) {
       this.context.globalCompositeOperation = 'destination-over'
+      this.context.shadowColor = '#999'
+      this.context.shadowBlur = 2
+      this.context.shadowOffsetY = 2
+      this.context.shadowOffsetX = 0
+    } else {
+      this.context.globalCompositeOperation = 'source-over'
+      this.context.shadowColor = '#999'
+      this.context.shadowBlur = 2
+      this.context.shadowOffsetY = 2
+      this.context.shadowOffsetX = 0
     }
     switch (item.shape) {
       case ItemShape.RECTANGLE:
