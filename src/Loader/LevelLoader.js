@@ -60,7 +60,7 @@ export default class LevelLoader {
       [offsetX, offsetY],
       [brickWidth, brickHeight],
       Helper.getRandomObjectFromArray(brickColors),
-      Helper.randomIntFromInterval(1, 3),
+      1,
     )]
     let brickAlreadyExists = false
 
