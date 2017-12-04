@@ -1,4 +1,4 @@
-import Item, { ItemType, ItemShape } from './Item'
+import Item, { ItemType, ItemShape, MovingDirection } from './Item'
 import Helper from '../Utility/Utility'
 
 export default class Ball extends Item {
@@ -30,6 +30,24 @@ export default class Ball extends Item {
           position = collision.calculatedCollisionPosition
           break
         case 'vertical':
+          if (collision.collider.type === ItemType.PLATFORM) {
+            const leftPlatformSide = (
+              (collision.collider.getWidth() / 3) + collision.collider.getXPosition()
+            )
+            const rightPlatformSide = (
+              ((collision.collider.getWidth() / 3) * 2) + collision.collider.getXPosition()
+            )
+            if (collision.calculatedCollisionPosition[0] <= leftPlatformSide) {
+              if (this.getDirection()[0] === MovingDirection.RIGHT) {
+                this.flipHorizontalDirection()
+              }
+            }
+            if (collision.calculatedCollisionPosition[0] >= rightPlatformSide) {
+              if (this.getDirection()[0] === MovingDirection.LEFT) {
+                this.flipHorizontalDirection()
+              }
+            }
+          }
           this.flipVerticalDirection()
           position = collision.calculatedCollisionPosition
           break
