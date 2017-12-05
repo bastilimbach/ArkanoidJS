@@ -1,6 +1,7 @@
 body {
     margin: 0;
     padding: 0;
+    background: #2C363F;
 }
 
 .app {
@@ -8,13 +9,225 @@ body {
     height: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
 }
 
 .sidebar {
-    background: white;
+    width: 20%;
+    height: 100%;
+    background: #2C363F;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: strech;
+    flex-direction: column;
+
+    h1 {
+        font-family: 'Bungee', cursive;
+        margin: 20px 0;
+        padding-left: 10px;
+        .dot {
+            height: 10px;
+            width: 10px;
+            background: #DB162F;
+            display: inline-block;
+            margin-left: 5px;
+            border-radius: 50%;
+        }
+    }
+
+    p {
+        font-family: 'Open Sans', sans-serif;
+        padding: 20px;
+        margin: 0;
+        line-height: 30px;
+    }
+
+    a {
+        font-family: 'Open Sans', sans-serif;
+        text-decoration: none;
+        color: #fff;
+        border-bottom: 3px solid #DB162F;
+    }
+
+    .bottom p {
+        font-size: 12px;
+        line-height: 20px;
+    }
+
+    .highlightBox {
+        width: 80%;
+        height: 50px;
+        border-radius: 5px;
+        background: #DB162F;
+        margin: 10px auto;
+        -webkit-box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.3);
+        -moz-box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.3);
+        box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.3);
+
+        p {
+            padding: 10px 20px;
+            margin: 0;
+            line-height: 30px;
+            font-family: 'Bungee', cursive;
+
+            &.left {
+                float: left;
+            }
+
+            &.right {
+                float: right;
+            }
+        }
+    }
 }
 
-canvas {
-    background: #e3e3e3;
+.game {
+    width: 80%;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    .backgroundVideo video {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: -1;
+    }
+
+    canvas {
+        align-self: center;
+        z-index: 9;
+        width: 100%;
+    }
+}
+
+.howToPlay {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    color: #fff;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80%;
+    text-align: center;
+    margin: 20px;
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    li {
+        display: inline-block;
+        &:not(:last-child) {
+            margin-right: 30px;
+        }
+    }
+
+    i {
+        font-style: normal;
+        display: inline-block;
+        background: rgb(34, 42, 48);
+        padding: 5px 10px;
+        margin: 0 5px;
+        border-radius: 5px;
+    }
+}
+
+.gameOverScreen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(34, 42, 48, 0.8);
+    z-index: 999;
+    display: none;
+    justify-content: space-around;
+    align-items: center;
+    color: #fff;
+    text-align: center;
+
+    &.show {
+        display: flex;
+    }
+
+    .gameOverPopup {
+        background: #DB162F;
+        padding: 30px;
+        width: 50%;
+        border-radius: 5px;
+        -webkit-box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.3);
+        -moz-box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.3);
+        box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.3);
+
+        h1 { 
+            font-family: 'Bungee', cursive;
+            margin: 0 ;
+        }
+
+        .message {
+            margin: 50px 0;
+
+            p {
+                font-family: 'Open Sans', sans-serif;
+                font-size: 22px;
+            }
+
+            .levelCounter {
+                font-family: 'Bungee', cursive;
+                font-size: 40px;
+            }
+        }
+
+        .share {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            cursor: pointer;
+            
+            li {
+                display: inline-block;
+                &:not(:last-child) {
+                    margin-right: 20px;
+                }
+            }
+
+            .shareButton {
+                font-family: 'Open Sans', sans-serif;
+                text-decoration: none;
+                display: block;
+                color: #fff;
+                border: 2px solid #fff;
+                border-radius: 5px;
+                padding: 10px 20px;
+                -webkit-transition: all 0.1s ease-in;
+                transition: all 0.1s ease-in;
+            }
+
+            .shareButton:hover {
+                background: #fff;
+                color: #000;
+            }
+        }
+
+        .restartButton {
+            font-family: 'Bungee', cursive;
+            margin: 50px auto 0 auto;
+            text-decoration: none;
+            color: #fff;
+            display: block;
+            background: #2C363F;
+            padding: 10px 20px;
+            width: 100px;
+            border-radius: 5px;
+        }
+    }
 }

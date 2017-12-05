@@ -7,7 +7,7 @@ export default class GameRender {
     this.context = this.canvas.getContext('2d')
     this.canvas.width = 1000
     this.canvas.height = 500
-    document.getElementsByClassName('app')[0].appendChild(this.canvas)
+    document.getElementsByClassName('game')[0].appendChild(this.canvas)
   }
 
   clearScreen() {
@@ -26,16 +26,8 @@ export default class GameRender {
   _drawShape(item) {
     if (item instanceof PowerUp) {
       this.context.globalCompositeOperation = 'destination-over'
-      this.context.shadowColor = '#999'
-      this.context.shadowBlur = 2
-      this.context.shadowOffsetY = 2
-      this.context.shadowOffsetX = 0
     } else {
       this.context.globalCompositeOperation = 'source-over'
-      this.context.shadowColor = '#999'
-      this.context.shadowBlur = 2
-      this.context.shadowOffsetY = 2
-      this.context.shadowOffsetX = 0
     }
     switch (item.shape) {
       case ItemShape.RECTANGLE:

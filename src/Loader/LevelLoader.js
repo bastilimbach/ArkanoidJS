@@ -12,7 +12,7 @@ export const LevelDifficulty = {
 
 export default class LevelLoader {
   static getProceduralLevelBricks(difficulty) {
-    const brickColors = ['#ff5050', '#1236f1']
+    const brickColors = ['#F2F7E3', '#BFC0C0', '#63595C']
     const powerUps = [
       { power: PowerUpType.INCREASE_SIZE, color: '#4286f4' },
       { power: PowerUpType.INCREASE_SPEED, color: '#4286f4' },

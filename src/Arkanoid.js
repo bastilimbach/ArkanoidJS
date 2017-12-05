@@ -4,6 +4,15 @@ import ItemLoader from './Loader/ItemLoader'
 import MouseController from './Controller/MouseController'
 import KeyboardController from './Controller/KeyboardController'
 import { ItemType } from './Item/Item'
+import MusicManager from './Utility/Music'
+import Helper from './Utility/Utility'
+
+import backgroundMusic from '../public/sounds/backgroundMusic/1.wav'
+import bgVideo1 from '../public/videos/background1.mp4'
+import bgVideo2 from '../public/videos/background2.mp4'
+import bgVideo3 from '../public/videos/background3.mp4'
+import bgVideo4 from '../public/videos/background4.mp4'
+import bgVideo5 from '../public/videos/background5.mp4'
 
 export const GameState = {
   RUNNING: 'running',
@@ -14,7 +23,7 @@ export const GameState = {
 export default class Arkanoid {
   constructor() {
     this.state = GameState.RUNNING
-    this.player = new Player(2)
+    this.player = new Player(3)
     this.currentLevel = 1
     this.render = new GameRender()
     ItemLoader.loadInitialItems()
@@ -27,6 +36,7 @@ export default class Arkanoid {
       ItemLoader.getControllableItems(),
     )
     this.keyboardController = new KeyboardController(this)
+    MusicManager.playMusic(backgroundMusic)
   }
 
   update() {
@@ -71,8 +81,9 @@ export default class Arkanoid {
             break
           }
         }
+        this.player.decreaseLife()
+        this.updateLifeCounter()
       }
-      this.player.decreaseLife()
     }
   }
 
@@ -84,7 +95,7 @@ export default class Arkanoid {
       }
     }
     if (!bricksRemaining) {
-      this.levelCleared()
+      this.loadNextLevel()
     }
   }
 
@@ -93,7 +104,7 @@ export default class Arkanoid {
       GameState.PAUSE : GameState.RUNNING
   }
 
-  levelCleared() {
+  loadNextLevel() {
     for (let i = 0; i < this.items.length; i += 1) {
       if (
         this.items[i].getItemType() !== ItemType.BOUNDARY &&
@@ -105,11 +116,30 @@ export default class Arkanoid {
     ItemLoader.loadLevel(this.currentLevel)
     this.player.increaseLife()
     this.currentLevel += 1
-    console.log('Next level!')
+    MusicManager.playMusic(backgroundMusic)
+    const videos = [bgVideo1, bgVideo2, bgVideo3, bgVideo4, bgVideo5]
+    const newBackgroundVideo = Helper.getRandomObjectFromArray(videos)
+    document.querySelector('.backgroundVideo > video > source').src = newBackgroundVideo
+    document.querySelector('.backgroundVideo > video').load()
+    this.updateLevelCounter()
+    this.updateLifeCounter()
   }
 
   gameOver() {
     this.togglePause()
-    console.log('GameOver')
+    const gameOverScreen = document.querySelector('.gameOverScreen')
+    gameOverScreen.className += ' show'
+  }
+
+  updateLevelCounter() {
+    const el = document.querySelectorAll('.levelCounter')
+    for (let i = 0; i < el.length; i += 1) {
+      el[i].innerHTML = this.currentLevel
+    }
+  }
+
+  updateLifeCounter() {
+    const el = document.querySelector('.lifeCounter')
+    el.innerHTML = this.player.getLife()
   }
 }

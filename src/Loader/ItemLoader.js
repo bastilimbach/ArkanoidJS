@@ -13,8 +13,8 @@ class ItemLoader {
   }
 
   loadInitialItems() {
-    const ball = new Ball(20, 'yellow')
-    const platform = new Platform(100, 10, '#000')
+    const ball = new Ball(20, '#DB162F')
+    const platform = new Platform(100, 10, '#DB162F')
     platform.attachItem(ball, AttachmentPosition.TOP)
     this.items = [platform]
     CollisionManager.addObservableItem(platform)
@@ -34,11 +34,11 @@ class ItemLoader {
   _loadLevelBoundaries() {
     const canvasWidth = 1000
     const canvasHeight = 500
-    const boundariesWidth = 5
-    const top = new Item([0, 0], [canvasWidth, boundariesWidth], 'blue', ItemType.BOUNDARY)
-    const right = new Item([canvasWidth - boundariesWidth, 0], [boundariesWidth, canvasHeight], 'blue', ItemType.BOUNDARY)
-    const bottom = new Item([0, canvasHeight - boundariesWidth], [canvasWidth, boundariesWidth], 'blue', ItemType.BOUNDARY, ItemShape.RECTANGLE, -2)
-    const left = new Item([0, 0], [boundariesWidth, canvasWidth], 'blue', ItemType.BOUNDARY)
+    const boundariesWidth = 10
+    const top = new Item([0, 0], [canvasWidth, boundariesWidth], '#2C363F', ItemType.BOUNDARY)
+    const right = new Item([canvasWidth - boundariesWidth, 0], [boundariesWidth, canvasHeight], '#2C363F', ItemType.BOUNDARY)
+    const bottom = new Item([0, canvasHeight - boundariesWidth], [canvasWidth, boundariesWidth], '#2C363F', ItemType.BOUNDARY, ItemShape.RECTANGLE, -2)
+    const left = new Item([0, 0], [boundariesWidth, canvasWidth], '#2C363F', ItemType.BOUNDARY)
     this.items.push(top, right, bottom, left)
     CollisionManager.addObservableItem(top)
     CollisionManager.addObservableItem(right)

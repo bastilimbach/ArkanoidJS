@@ -14,7 +14,7 @@ export default class Platform extends Item {
   }
 
   bindBall() {
-    const newBall = new Ball(20, 'yellow')
+    const newBall = new Ball(20, '#DB162F')
     this.attachItem(newBall, AttachmentPosition.TOP)
   }
 
@@ -29,7 +29,7 @@ export default class Platform extends Item {
         const xDirections = [MovingDirection.LEFT, MovingDirection.RIGHT]
         const randomXDirection = xDirections[Math.floor(Math.random() * xDirections.length)]
         const randomSpeed = () => Helper.randomIntFromInterval(4, 8)
-        detachedBall.setSpeed([randomSpeed(), randomSpeed()])
+        detachedBall.setSpeed([0, randomSpeed()])
         detachedBall.setDirection([randomXDirection, MovingDirection.UP])
         ItemLoader.addItem(detachedBall)
         ItemLoader.addMovingItem(detachedBall)

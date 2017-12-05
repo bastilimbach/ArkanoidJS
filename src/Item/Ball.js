@@ -1,5 +1,8 @@
 import Item, { ItemType, ItemShape, MovingDirection } from './Item'
 import Helper from '../Utility/Utility'
+import MusicManager from '../Utility/Music'
+import boundaryCollisionSound from '../../public/sounds/ball/boundaryCollision.wav'
+import brickCollisionSound from '../../public/sounds/ball/brickCollision.wav'
 
 export default class Ball extends Item {
   constructor(width, color, position = null) {
@@ -57,6 +60,7 @@ export default class Ball extends Item {
     }
 
     if (collision.collider.type === ItemType.BRICK) {
+      MusicManager.playSound(brickCollisionSound)
       if (collision.collider.life === 1) {
         for (let i = 0; i < collision.collider.boundItems.length; i += 1) {
           if (collision.collider.boundItems[i].getItemType() === ItemType.POWERUP) {
@@ -70,6 +74,7 @@ export default class Ball extends Item {
     }
 
     if (collision.collider.type === ItemType.BOUNDARY) {
+      MusicManager.playSound(boundaryCollisionSound)
       if (collision.collider.life < this.life) {
         this.setLife(0)
       }
