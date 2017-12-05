@@ -16,12 +16,12 @@ module.exports = {
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
-        test: /\.html$/,
+        test: /\.(html|wav|mp4)$/,
         use: [
           {
             loader: 'file-loader',
             options: {
-              name: 'index.html',
+              name: '[name].[ext]',
             },
           },
         ],

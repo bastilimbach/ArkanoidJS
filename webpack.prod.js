@@ -24,12 +24,12 @@ module.exports = {
         ]),
       },
       {
-        test: /\.html$/,
+        test: /\.(html|wav|mp4)$/,
         use: [
           {
             loader: 'file-loader',
             options: {
-              name: 'index.html',
+              name: '[name].[ext]',
             },
           },
         ],
