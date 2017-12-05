@@ -4,10 +4,8 @@ import ItemLoader from './Loader/ItemLoader'
 import MouseController from './Controller/MouseController'
 import KeyboardController from './Controller/KeyboardController'
 import { ItemType } from './Item/Item'
-import MusicManager from './Utility/Music'
 import Helper from './Utility/Utility'
 
-import backgroundMusic from '../public/sounds/backgroundMusic/1.wav'
 import bgVideo1 from '../public/videos/background1.mp4'
 import bgVideo2 from '../public/videos/background2.mp4'
 import bgVideo3 from '../public/videos/background3.mp4'
@@ -35,7 +33,6 @@ export default class Arkanoid {
       ItemLoader.getControllableItems(),
     )
     this.keyboardController = new KeyboardController(this)
-    MusicManager.playMusic(backgroundMusic)
   }
 
   update() {
@@ -116,7 +113,6 @@ export default class Arkanoid {
     ItemLoader.loadLevel(this.currentLevel)
     Player.increaseLife()
     this.currentLevel += 1
-    MusicManager.playMusic(backgroundMusic)
     const videos = [bgVideo1, bgVideo2, bgVideo3, bgVideo4, bgVideo5]
     const newBackgroundVideo = Helper.getRandomObjectFromArray(videos)
     document.querySelector('.backgroundVideo > video > source').src = newBackgroundVideo

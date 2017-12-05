@@ -80,6 +80,40 @@ body {
             }
         }
     }
+
+    .volumeSettings {
+        list-style: none;
+        padding: 10px;
+        margin: 30px;
+        background: rgb(34, 42, 48);
+        border-radius: 5px;
+
+        h2 {
+            font-family: 'Bungee', cursive;
+            font-size: 14px;
+            margin: 0
+        }
+
+        li {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 10px;
+            text-transform: uppercase;
+            
+            &:not(:last-child) {
+                margin-bottom: 10px;
+            }
+
+            p {
+                padding: 0;
+                line-height: 10px;
+            }
+
+            input {
+                width: 100%;
+                margin: 0;
+            }
+        }
+    }
 }
 
 .game {

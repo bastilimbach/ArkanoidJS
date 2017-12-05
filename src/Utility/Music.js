@@ -3,7 +3,7 @@ class MusicManager {
     this.sound = new Audio()
     this.music = new Audio()
     this.soundVolume = 1
-    this.musicVolume = 1
+    this.musicVolume = 0.5
   }
 
   playSound(path) {
@@ -23,7 +23,7 @@ class MusicManager {
 
     this.music = new Audio(path)
     this.music.currentTime = 0
-    this.music.volume = 0
+    this.music.volume = this.musicVolume
     this.music.play()
 
     // const fadeInMusic = setInterval(() => {
@@ -36,10 +36,12 @@ class MusicManager {
 
   setSoundVolume(volume) {
     this.soundVolume = volume
+    this.sound.volume = volume
   }
 
   setMusicVolume(volume) {
     this.musicVolume = volume
+    this.music.volume = volume
   }
 }
 

@@ -8,7 +8,6 @@ export default class MouseController {
   }
 
   mouseMoved(event) {
-    console.log(event)
     const rect = this.canvas.getBoundingClientRect()
     const scaleX = this.canvas.width / rect.width
     const scaleY = this.canvas.height / rect.height
