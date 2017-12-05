@@ -23,7 +23,6 @@ export const GameState = {
 export default class Arkanoid {
   constructor() {
     this.state = GameState.RUNNING
-    this.player = new Player(3)
     this.currentLevel = 1
     this.render = new GameRender()
     ItemLoader.loadInitialItems()
@@ -41,6 +40,8 @@ export default class Arkanoid {
 
   update() {
     this.items = ItemLoader.getItems()
+    this.updateLevelCounter()
+    this.constructor.updateLifeCounter()
     if (this.state === GameState.RUNNING) {
       this._checkUserLife()
       this._checkRemainingBricks()
@@ -72,7 +73,7 @@ export default class Arkanoid {
       }
     }
     if (allBallsDestroyed) {
-      if (this.player.getLife() <= 0) {
+      if (Player.getLife() <= 0) {
         this.gameOver()
       } else {
         for (let i = 0; i < this.items.length; i += 1) {
@@ -81,8 +82,7 @@ export default class Arkanoid {
             break
           }
         }
-        this.player.decreaseLife()
-        this.updateLifeCounter()
+        Player.decreaseLife()
       }
     }
   }
@@ -114,15 +114,13 @@ export default class Arkanoid {
       }
     }
     ItemLoader.loadLevel(this.currentLevel)
-    this.player.increaseLife()
+    Player.increaseLife()
     this.currentLevel += 1
     MusicManager.playMusic(backgroundMusic)
     const videos = [bgVideo1, bgVideo2, bgVideo3, bgVideo4, bgVideo5]
     const newBackgroundVideo = Helper.getRandomObjectFromArray(videos)
     document.querySelector('.backgroundVideo > video > source').src = newBackgroundVideo
     document.querySelector('.backgroundVideo > video').load()
-    this.updateLevelCounter()
-    this.updateLifeCounter()
   }
 
   gameOver() {
@@ -138,8 +136,8 @@ export default class Arkanoid {
     }
   }
 
-  updateLifeCounter() {
+  static updateLifeCounter() {
     const el = document.querySelector('.lifeCounter')
-    el.innerHTML = this.player.getLife()
+    el.innerHTML = Player.getLife()
   }
 }

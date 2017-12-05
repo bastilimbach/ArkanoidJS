@@ -1,4 +1,4 @@
-export default class Player {
+class Player {
   constructor(life) {
     this.life = life
   }
@@ -15,3 +15,5 @@ export default class Player {
     return this.life
   }
 }
+
+export default new Player(3)
