@@ -6,13 +6,71 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="bundle.js"></script>
     <link rel="stylesheet" href="bundle.css">
+    <link href="https://fonts.googleapis.com/css?family=Bungee|Open+Sans:300" rel="stylesheet">
     <title>ArkanoidJS</title>
 </head>
 
 <body>
+    <div class="gameOverScreen">
+        <div class="gameOverPopup">
+            <h1>Game Over</h1>
+            <div class="message">
+                <p>Congratulation, you reached level:</p>
+                <div class="levelCounter">1</div>
+            </div>
+            <ul class="share">
+                <li>
+                    <a class="facebookShare shareButton" target="_blank">Share it on Facebook</a>
+                </li>
+                <li>
+                    <a class="twitterShare shareButton" target="_blank">Share it on Twitter</a>
+                </li>
+            </ul>
+            <a href="" onclick="location.reload()" class="restartButton">Restart game</a>
+        </div>
+    </div>
     <div class="app">
         <div class="sidebar">
-            <h1>ArkanoidJS</h1>
+            <div class="top">
+                <h1>ArkanoidJS<div class="dot"></div></h1>
+                <p class="description">
+                    ArkanoidJS is the result of a college project with the subject of trying to recreate retro games in modern JavaScript.
+                </p>
+                <div class="highlightBox">
+                    <p class="left">Level</p>
+                    <p class="right levelCounter">1</p>
+                </div>
+                <div class="highlightBox">
+                    <p class="left">Life</p>
+                    <p class="right lifeCounter">3</p>
+                </div>
+            </div>
+            <div class="bottom">
+                <p>
+                    Created with ❤️ by <a href="https://sebastianlimbach.com" target="_blank">Sebastian Limbach</a>. </br>
+                    Source code licensed under <a href="https://github.com/bastilimbach/ArkanoidJS/blob/master/LICENSE" target="_blank">MIT</a> and available on <a href="https://github.com/bastilimbach/ArkanoidJS" target="_blank">Github</a>.
+                </p>
+            </div>
+        </div>
+        <div class="howToPlay">
+            <ul>
+                <li>
+                    Move platform: <i>Mouse</i>
+                </li>
+                <li>
+                    Detach ball: <i>Left click</i>
+                </li>
+                <li>
+                    Pause: <i>ESC</i>,<i>Space</i> or <i>P</i>
+                </li>
+            </ul>
+        </div>
+        <div class="game">
+            <div class="backgroundVideo">
+                <video autoplay="" loop muted preload="auto">
+                    <source src="background4.mp4" type="video/mp4; codecs=&quot;avc1.42E01E, mp4a.40.2&quot;">
+                </video>
+            </div>
         </div>
     </div>
 </body>
