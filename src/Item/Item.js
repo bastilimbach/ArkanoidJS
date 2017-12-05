@@ -125,7 +125,13 @@ export default class Item {
   }
 
   increaseSpeed(speed) {
-    this.speed = [this.speed[0] + speed, this.speed[1] + speed]
+    this.speed[0] += speed[0]
+    this.speed[1] += speed[1]
+  }
+
+  decreaseSpeed(speed) {
+    this.speed[0] -= speed[0]
+    this.speed[1] -= speed[1]
   }
 
   getSpeed() {
@@ -180,8 +186,22 @@ export default class Item {
     return this.size[0]
   }
 
+  increaseSize(newSize) {
+    this.size[0] += newSize[0]
+    this.size[1] += newSize[1]
+  }
+
+  decreaseSize(newSize) {
+    this.size[0] -= newSize[0]
+    this.size[1] -= newSize[1]
+  }
+
   increaseWidth(width) {
     this.size[0] += width
+  }
+
+  decreaseWidth(width) {
+    this.size[0] -= width
   }
 
   getHeight() {

@@ -1,10 +1,16 @@
 import Item, { ItemType, ItemShape, MovingDirection } from './Item'
 import Helper from '../Utility/Utility'
 import ItemLoader from '../Loader/ItemLoader'
+import Player from '../Player'
 
 export const PowerUpType = {
   INCREASE_SIZE: 'increaseSize',
+  DECREASE_SIZE: 'decreaseSize',
+  INCREASE_MOVING_ITEMS_SIZE: 'increaseSizeOfMovingItems',
+  DECREASE_MOVING_ITEMS_SIZE: 'decreaseSizeOfMovingItems',
   INCREASE_SPEED: 'increaseSpeed',
+  DECREASE_SPEED: 'decreaseSpeed',
+  INCREASE_PLAYER_LIFE: 'increasePlayerLife',
 }
 
 export default class PowerUp extends Item {
@@ -40,10 +46,11 @@ export default class PowerUp extends Item {
     const prevBoundPosition = this.position
     const prevColor = this.color
     const prevWidth = this.size[0]
+    const prevPower = this.powerUp
     const detachedPowerUp = new PowerUp(
       prevWidth,
       prevColor,
-      PowerUpType.INCREASE_SPEED,
+      prevPower,
       prevBoundPosition,
     )
     detachedPowerUp.setSpeed([0, 3])
@@ -67,15 +74,60 @@ export default class PowerUp extends Item {
   _applyPowerUp(item) {
     switch (this.powerUp) {
       case PowerUpType.INCREASE_SIZE:
-        item.increaseWidth(5)
+        console.log('Increase size')
+        if (item.getWidth() < 300) {
+          item.increaseWidth(20)
+        }
+        break
+      case PowerUpType.DECREASE_SIZE:
+        console.log('Decrease size')
+        if (item.getWidth() > 50) {
+          item.decreaseWidth(20)
+        }
         break
       case PowerUpType.INCREASE_SPEED: {
+        console.log('Increase speed')
         const movingItems = ItemLoader.getMovingItems()
         for (let i = 0; i < movingItems.length; i += 1) {
-          movingItems[i].increaseSpeed(3)
+          if (movingItems[i].getSpeed()[0] < 10 && movingItems[i].getSpeed()[1] < 10) {
+            movingItems[i].increaseSpeed(3)
+          }
         }
         break
       }
+      case PowerUpType.DECREASE_SPEED: {
+        console.log('Decrease speed')
+        const movingItems = ItemLoader.getMovingItems()
+        for (let i = 0; i < movingItems.length; i += 1) {
+          if (movingItems[i].getSpeed()[0] > 4 && movingItems[i].getSpeed()[1] < 4) {
+            movingItems[i].decreaseSpeed(3)
+          }
+        }
+        break
+      }
+      case PowerUpType.INCREASE_MOVING_ITEMS_SIZE: {
+        console.log('Increase ball size')
+        const movingItems = ItemLoader.getMovingItems()
+        for (let i = 0; i < movingItems.length; i += 1) {
+          if (movingItems[i].getWidth() < 50) {
+            movingItems[i].increaseSize([10, 10])
+          }
+        }
+        break
+      }
+      case PowerUpType.DECREASE_MOVING_ITEMS_SIZE: {
+        console.log('Decrease ball size')
+        const movingItems = ItemLoader.getMovingItems()
+        for (let i = 0; i < movingItems.length; i += 1) {
+          if (movingItems[i].getWidth() > 10) {
+            movingItems[i].decreaseSize([10, 10])
+          }
+        }
+        break
+      }
+      case PowerUpType.INCREASE_PLAYER_LIFE:
+        Player.increaseLife()
+        break
       default:
         break
     }

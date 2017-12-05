@@ -13,9 +13,16 @@ export const LevelDifficulty = {
 export default class LevelLoader {
   static getProceduralLevelBricks(difficulty) {
     const brickColors = ['#F2F7E3', '#BFC0C0', '#63595C']
+    const badPowerUpColor = '#177E89'
+    const goodPowerUpColor = '#FFC857'
     const powerUps = [
-      { power: PowerUpType.INCREASE_SIZE, color: '#4286f4' },
-      { power: PowerUpType.INCREASE_SPEED, color: '#4286f4' },
+      { power: PowerUpType.INCREASE_SIZE, color: goodPowerUpColor },
+      { power: PowerUpType.DECREASE_SIZE, color: badPowerUpColor },
+      { power: PowerUpType.INCREASE_MOVING_ITEMS_SIZE, color: goodPowerUpColor },
+      { power: PowerUpType.DECREASE_MOVING_ITEMS_SIZE, color: badPowerUpColor },
+      { power: PowerUpType.INCREASE_SPEED, color: badPowerUpColor },
+      { power: PowerUpType.DECREASE_SPEED, color: goodPowerUpColor },
+      { power: PowerUpType.INCREASE_PLAYER_LIFE, color: goodPowerUpColor },
     ]
 
     let brickAmount = 10
