@@ -1,5 +1,4 @@
 # ArkanoidJS [![Build Status](https://travis-ci.org/bastilimbach/ArkanoidJS.svg?branch=master)](https://travis-ci.org/bastilimbach/ArkanoidJS)
-> :warning: This is a work in progress project! It may not represent the finished product or work at all.
 
 ArkanoidJS is the result of a college project with the subject of trying to recreate retro games in modern JavaScript.
 
@@ -41,7 +40,7 @@ This project wouldn't be possible without the people, who created the amazing as
 - [XANNN](https://vimeo.com/165286507) ([License](http://beeple-crap.com/resources.php))
 
 ## Contribution
-I'm happy to accept Pull Requests if you come up with some awesome new game features or bug fixes! Please be sure to run `yarn test` before you push your changes.
+I'm happy to accept Pull Requests if you come up with some awesome new game features or bug fixes! Please be sure to run `yarn test` before you push your changes. Please note that this project is released with a [Contributor Code of Conduct](https://github.com/bastilimbach/ArkanoidJS/blob/master/.github/CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
 
 ## License
 [MIT](https://github.com/bastilimbach/ArkanoidJS/blob/master/LICENSE) :heart:
