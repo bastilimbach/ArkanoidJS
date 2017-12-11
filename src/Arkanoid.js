@@ -11,6 +11,8 @@ import bgVideo2 from '../public/videos/background2.mp4'
 import bgVideo3 from '../public/videos/background3.mp4'
 import bgVideo4 from '../public/videos/background4.mp4'
 import bgVideo5 from '../public/videos/background5.mp4'
+import bgVideo6 from '../public/videos/background6.mp4'
+import bgVideo7 from '../public/videos/background7.mp4'
 
 export const GameState = {
   RUNNING: 'running',
@@ -113,7 +115,7 @@ export default class Arkanoid {
     ItemLoader.loadLevel(this.currentLevel)
     Player.increaseLife()
     this.currentLevel += 1
-    const videos = [bgVideo1, bgVideo2, bgVideo3, bgVideo4, bgVideo5]
+    const videos = [bgVideo1, bgVideo2, bgVideo3, bgVideo4, bgVideo5, bgVideo6, bgVideo7]
     const newBackgroundVideo = Helper.getRandomObjectFromArray(videos)
     document.querySelector('.backgroundVideo > video > source').src = newBackgroundVideo
     document.querySelector('.backgroundVideo > video').load()
